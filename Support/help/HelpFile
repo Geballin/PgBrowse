@@ -1,0 +1,1017 @@
+Command:     ABORT
+Description: abort the current transaction
+Syntax:
+ABORT [ WORK | TRANSACTION ]
+
+Command:     ALTER AGGREGATE
+Description: change the definition of an aggregate function
+Syntax:
+ALTER AGGREGATE name ( type ) RENAME TO new_name
+ALTER AGGREGATE name ( type ) OWNER TO new_owner
+ALTER AGGREGATE name ( type ) SET SCHEMA new_schema
+
+Command:     ALTER CONVERSION
+Description: change the definition of a conversion
+Syntax:
+ALTER CONVERSION name RENAME TO newname
+ALTER CONVERSION name OWNER TO newowner
+
+Command:     ALTER DATABASE
+Description: change a database
+Syntax:
+ALTER DATABASE name [ [ WITH ] option [ ... ] ]
+
+where option can be:
+
+    CONNECTION LIMIT connlimit
+
+ALTER DATABASE name SET parameter { TO | = } { value | DEFAULT }
+ALTER DATABASE name RESET parameter
+
+ALTER DATABASE name RENAME TO newname
+
+ALTER DATABASE name OWNER TO new_owner
+
+Command:     ALTER DOMAIN
+Description: change the definition of a domain
+Syntax:
+ALTER DOMAIN name
+    { SET DEFAULT expression | DROP DEFAULT }
+ALTER DOMAIN name
+    { SET | DROP } NOT NULL
+ALTER DOMAIN name
+    ADD domain_constraint
+ALTER DOMAIN name
+    DROP CONSTRAINT constraint_name [ RESTRICT | CASCADE ]
+ALTER DOMAIN name
+    OWNER TO new_owner 
+ALTER DOMAIN name
+    SET SCHEMA new_schema
+
+Command:     ALTER FUNCTION
+Description: change the definition of a function
+Syntax:
+ALTER FUNCTION name ( [ [ argmode ] [ argname ] argtype [, ...] ] )
+    action [, ... ] [ RESTRICT ]
+ALTER FUNCTION name ( [ [ argmode ] [ argname ] argtype [, ...] ] )
+    RENAME TO new_name
+ALTER FUNCTION name ( [ [ argmode ] [ argname ] argtype [, ...] ] )
+    OWNER TO new_owner
+ALTER FUNCTION name ( [ [ argmode ] [ argname ] argtype [, ...] ] )
+    SET SCHEMA new_schema
+
+where action is one of:
+
+    CALLED ON NULL INPUT | RETURNS NULL ON NULL INPUT | STRICT
+    IMMUTABLE | STABLE | VOLATILE
+    [ EXTERNAL ] SECURITY INVOKER | [ EXTERNAL ] SECURITY DEFINER
+
+Command:     ALTER GROUP
+Description: change role name or membership
+Syntax:
+ALTER GROUP groupname ADD USER username [, ... ]
+ALTER GROUP groupname DROP USER username [, ... ]
+
+ALTER GROUP groupname RENAME TO newname
+
+Command:     ALTER INDEX
+Description: change the definition of an index
+Syntax:
+ALTER INDEX name RENAME TO new_name
+ALTER INDEX name SET TABLESPACE tablespace_name
+
+Command:     ALTER LANGUAGE
+Description: change the definition of a procedural language
+Syntax:
+ALTER LANGUAGE name RENAME TO newname
+
+Command:     ALTER OPERATOR CLASS
+Description: change the definition of an operator class
+Syntax:
+ALTER OPERATOR CLASS name USING index_method RENAME TO newname
+ALTER OPERATOR CLASS name USING index_method OWNER TO newowner
+
+Command:     ALTER OPERATOR
+Description: change the definition of an operator
+Syntax:
+ALTER OPERATOR name ( { lefttype | NONE } , { righttype | NONE } ) OWNER TO newowner
+
+Command:     ALTER ROLE
+Description: change a database role
+Syntax:
+ALTER ROLE name [ [ WITH ] option [ ... ] ]
+
+where option can be:
+    
+      SUPERUSER | NOSUPERUSER
+    | CREATEDB | NOCREATEDB
+    | CREATEROLE | NOCREATEROLE
+    | CREATEUSER | NOCREATEUSER
+    | INHERIT | NOINHERIT
+    | LOGIN | NOLOGIN
+    | CONNECTION LIMIT connlimit
+    | [ ENCRYPTED | UNENCRYPTED ] PASSWORD 'password'
+    | VALID UNTIL 'timestamp' 
+
+ALTER ROLE name RENAME TO newname
+
+ALTER ROLE name SET parameter { TO | = } { value | DEFAULT }
+ALTER ROLE name RESET parameter
+
+Command:     ALTER SCHEMA
+Description: change the definition of a schema
+Syntax:
+ALTER SCHEMA name RENAME TO newname
+ALTER SCHEMA name OWNER TO newowner
+
+Command:     ALTER SEQUENCE
+Description: change the definition of a sequence generator
+Syntax:
+ALTER SEQUENCE name [ INCREMENT [ BY ] increment ]
+    [ MINVALUE minvalue | NO MINVALUE ] [ MAXVALUE maxvalue | NO MAXVALUE ]
+    [ RESTART [ WITH ] start ] [ CACHE cache ] [ [ NO ] CYCLE ]
+ALTER SEQUENCE name SET SCHEMA new_schema
+
+Command:     ALTER TABLE
+Description: change the definition of a table
+Syntax:
+ALTER TABLE [ ONLY ] name [ * ]
+    action [, ... ]
+ALTER TABLE [ ONLY ] name [ * ]
+    RENAME [ COLUMN ] column TO new_column
+ALTER TABLE name
+    RENAME TO new_name
+ALTER TABLE name
+    SET SCHEMA new_schema
+
+where action is one of:
+
+    ADD [ COLUMN ] column type [ column_constraint [ ... ] ]
+    DROP [ COLUMN ] column [ RESTRICT | CASCADE ]
+    ALTER [ COLUMN ] column TYPE type [ USING expression ]
+    ALTER [ COLUMN ] column SET DEFAULT expression
+    ALTER [ COLUMN ] column DROP DEFAULT
+    ALTER [ COLUMN ] column { SET | DROP } NOT NULL
+    ALTER [ COLUMN ] column SET STATISTICS integer
+    ALTER [ COLUMN ] column SET STORAGE { PLAIN | EXTERNAL | EXTENDED | MAIN }
+    ADD table_constraint
+    DROP CONSTRAINT constraint_name [ RESTRICT | CASCADE ]
+    DISABLE TRIGGER [ trigger_name | ALL | USER ]
+    ENABLE TRIGGER [ trigger_name | ALL | USER ]
+    CLUSTER ON index_name
+    SET WITHOUT CLUSTER
+    SET WITHOUT OIDS
+    OWNER TO new_owner
+    SET TABLESPACE new_tablespace
+
+Command:     ALTER TABLESPACE
+Description: change the definition of a tablespace
+Syntax:
+ALTER TABLESPACE name RENAME TO newname
+ALTER TABLESPACE name OWNER TO newowner
+
+Command:     ALTER TRIGGER
+Description: change the definition of a trigger
+Syntax:
+ALTER TRIGGER name ON table RENAME TO newname
+
+Command:     ALTER TYPE
+Description: change the definition of a type
+Syntax:
+ALTER TYPE name OWNER TO new_owner 
+ALTER TYPE name SET SCHEMA new_schema
+
+Command:     ALTER USER
+Description: change a database role
+Syntax:
+ALTER USER name [ [ WITH ] option [ ... ] ]
+
+where option can be:
+    
+      SUPERUSER | NOSUPERUSER
+    | CREATEDB | NOCREATEDB
+    | CREATEROLE | NOCREATEROLE
+    | CREATEUSER | NOCREATEUSER
+    | INHERIT | NOINHERIT
+    | LOGIN | NOLOGIN
+    | CONNECTION LIMIT connlimit
+    | [ ENCRYPTED | UNENCRYPTED ] PASSWORD 'password'
+    | VALID UNTIL 'timestamp' 
+
+ALTER USER name RENAME TO newname
+
+ALTER USER name SET parameter { TO | = } { value | DEFAULT }
+ALTER USER name RESET parameter
+
+Command:     ANALYZE
+Description: collect statistics about a database
+Syntax:
+ANALYZE [ VERBOSE ] [ table [ (column [, ...] ) ] ]
+
+Command:     BEGIN
+Description: start a transaction block
+Syntax:
+BEGIN [ WORK | TRANSACTION ] [ transaction_mode [, ...] ]
+
+where transaction_mode is one of:
+
+    ISOLATION LEVEL { SERIALIZABLE | REPEATABLE READ | READ COMMITTED | READ UNCOMMITTED }
+    READ WRITE | READ ONLY
+
+Command:     CHECKPOINT
+Description: force a transaction log checkpoint
+Syntax:
+CHECKPOINT
+
+Command:     CLOSE
+Description: close a cursor
+Syntax:
+CLOSE name
+
+Command:     CLUSTER
+Description: cluster a table according to an index
+Syntax:
+CLUSTER indexname ON tablename
+CLUSTER tablename
+CLUSTER
+
+Command:     COMMENT
+Description: define or change the comment of an object
+Syntax:
+COMMENT ON
+{
+  TABLE object_name |
+  COLUMN table_name.column_name |
+  AGGREGATE agg_name (agg_type) |
+  CAST (sourcetype AS targettype) |
+  CONSTRAINT constraint_name ON table_name |
+  CONVERSION object_name |
+  DATABASE object_name |
+  DOMAIN object_name |
+  FUNCTION func_name ( [ [ argmode ] [ argname ] argtype [, ...] ] ) |
+  INDEX object_name |
+  LARGE OBJECT large_object_oid |
+  OPERATOR op (leftoperand_type, rightoperand_type) |
+  OPERATOR CLASS object_name USING index_method |
+  [ PROCEDURAL ] LANGUAGE object_name |
+  RULE rule_name ON table_name |
+  SCHEMA object_name |
+  SEQUENCE object_name |
+  TRIGGER trigger_name ON table_name |
+  TYPE object_name |
+  VIEW object_name
+} IS 'text'
+
+Command:     COMMIT
+Description: commit the current transaction
+Syntax:
+COMMIT [ WORK | TRANSACTION ]
+
+Command:     COMMIT PREPARED
+Description: commit a transaction that was earlier prepared for two-phase commit
+Syntax:
+COMMIT PREPARED transaction_id
+
+Command:     COPY
+Description: copy data between a file and a table
+Syntax:
+COPY tablename [ ( column [, ...] ) ]
+    FROM { 'filename' | STDIN }
+    [ [ WITH ] 
+          [ BINARY ]
+          [ OIDS ]
+          [ DELIMITER [ AS ] 'delimiter' ]
+          [ NULL [ AS ] 'null string' ]
+          [ CSV [ HEADER ]
+                [ QUOTE [ AS ] 'quote' ] 
+                [ ESCAPE [ AS ] 'escape' ]
+                [ FORCE NOT NULL column [, ...] ]
+
+COPY tablename [ ( column [, ...] ) ]
+    TO { 'filename' | STDOUT }
+    [ [ WITH ] 
+          [ BINARY ]
+          [ HEADER ]
+          [ OIDS ]
+          [ DELIMITER [ AS ] 'delimiter' ]
+          [ NULL [ AS ] 'null string' ]
+          [ CSV [ HEADER ]
+                [ QUOTE [ AS ] 'quote' ] 
+                [ ESCAPE [ AS ] 'escape' ]
+                [ FORCE QUOTE column [, ...] ]
+
+Command:     CREATE AGGREGATE
+Description: define a new aggregate function
+Syntax:
+CREATE AGGREGATE name (
+    BASETYPE = input_data_type,
+    SFUNC = sfunc,
+    STYPE = state_data_type
+    [ , FINALFUNC = ffunc ]
+    [ , INITCOND = initial_condition ]
+    [ , SORTOP = sort_operator ]
+)
+
+Command:     CREATE CAST
+Description: define a new cast
+Syntax:
+CREATE CAST (sourcetype AS targettype)
+    WITH FUNCTION funcname (argtypes)
+    [ AS ASSIGNMENT | AS IMPLICIT ]
+
+CREATE CAST (sourcetype AS targettype)
+    WITHOUT FUNCTION
+    [ AS ASSIGNMENT | AS IMPLICIT ]
+
+Command:     CREATE CONSTRAINT TRIGGER
+Description: define a new constraint trigger
+Syntax:
+CREATE CONSTRAINT TRIGGER name
+    AFTER events ON
+    tablename constraint attributes
+    FOR EACH ROW EXECUTE PROCEDURE funcname ( args )
+
+Command:     CREATE CONVERSION
+Description: define a new encoding conversion
+Syntax:
+CREATE [DEFAULT] CONVERSION name
+    FOR source_encoding TO dest_encoding FROM funcname
+
+Command:     CREATE DATABASE
+Description: create a new database
+Syntax:
+CREATE DATABASE name
+    [ [ WITH ] [ OWNER [=] dbowner ]
+           [ TEMPLATE [=] template ]
+           [ ENCODING [=] encoding ]
+           [ TABLESPACE [=] tablespace ]
+           [ CONNECTION LIMIT [=] connlimit ] ]
+
+Command:     CREATE DOMAIN
+Description: define a new domain
+Syntax:
+CREATE DOMAIN name [AS] data_type
+    [ DEFAULT expression ]
+    [ constraint [ ... ] ]
+
+where constraint is:
+
+[ CONSTRAINT constraint_name ]
+{ NOT NULL | NULL | CHECK (expression) }
+
+Command:     CREATE FUNCTION
+Description: define a new function
+Syntax:
+CREATE [ OR REPLACE ] FUNCTION
+    name ( [ [ argmode ] [ argname ] argtype [, ...] ] )
+    [ RETURNS rettype ]
+  { LANGUAGE langname
+    | IMMUTABLE | STABLE | VOLATILE
+    | CALLED ON NULL INPUT | RETURNS NULL ON NULL INPUT | STRICT
+    | [ EXTERNAL ] SECURITY INVOKER | [ EXTERNAL ] SECURITY DEFINER
+    | AS 'definition'
+    | AS 'obj_file', 'link_symbol'
+  } ...
+    [ WITH ( attribute [, ...] ) ]
+
+Command:     CREATE GROUP
+Description: define a new database role
+Syntax:
+CREATE GROUP name [ [ WITH ] option [ ... ] ]
+
+where option can be:
+    
+      SUPERUSER | NOSUPERUSER
+    | CREATEDB | NOCREATEDB
+    | CREATEROLE | NOCREATEROLE
+    | CREATEUSER | NOCREATEUSER
+    | INHERIT | NOINHERIT
+    | LOGIN | NOLOGIN
+    | [ ENCRYPTED | UNENCRYPTED ] PASSWORD 'password'
+    | VALID UNTIL 'timestamp' 
+    | IN ROLE rolename [, ...]
+    | IN GROUP rolename [, ...]
+    | ROLE rolename [, ...]
+    | ADMIN rolename [, ...]
+    | USER rolename [, ...]
+    | SYSID uid
+
+Command:     CREATE INDEX
+Description: define a new index
+Syntax:
+CREATE [ UNIQUE ] INDEX name ON table [ USING method ]
+    ( { column | ( expression ) } [ opclass ] [, ...] )
+    [ TABLESPACE tablespace ]
+    [ WHERE predicate ]
+
+Command:     CREATE LANGUAGE
+Description: define a new procedural language
+Syntax:
+CREATE [ PROCEDURAL ] LANGUAGE name
+CREATE [ TRUSTED ] [ PROCEDURAL ] LANGUAGE name
+    HANDLER call_handler [ VALIDATOR valfunction ]
+
+Command:     CREATE OPERATOR CLASS
+Description: define a new operator class
+Syntax:
+CREATE OPERATOR CLASS name [ DEFAULT ] FOR TYPE data_type USING index_method AS
+  {  OPERATOR strategy_number operator_name [ ( op_type, op_type ) ] [ RECHECK ]
+   | FUNCTION support_number funcname ( argument_type [, ...] )
+   | STORAGE storage_type
+  } [, ... ]
+
+Command:     CREATE OPERATOR
+Description: define a new operator
+Syntax:
+CREATE OPERATOR name (
+    PROCEDURE = funcname
+    [, LEFTARG = lefttype ] [, RIGHTARG = righttype ]
+    [, COMMUTATOR = com_op ] [, NEGATOR = neg_op ]
+    [, RESTRICT = res_proc ] [, JOIN = join_proc ]
+    [, HASHES ] [, MERGES ]
+    [, SORT1 = left_sort_op ] [, SORT2 = right_sort_op ]
+    [, LTCMP = less_than_op ] [, GTCMP = greater_than_op ]
+)
+
+Command:     CREATE ROLE
+Description: define a new database role
+Syntax:
+CREATE ROLE name [ [ WITH ] option [ ... ] ]
+
+where option can be:
+    
+      SUPERUSER | NOSUPERUSER
+    | CREATEDB | NOCREATEDB
+    | CREATEROLE | NOCREATEROLE
+    | CREATEUSER | NOCREATEUSER
+    | INHERIT | NOINHERIT
+    | LOGIN | NOLOGIN
+    | CONNECTION LIMIT connlimit
+    | [ ENCRYPTED | UNENCRYPTED ] PASSWORD 'password'
+    | VALID UNTIL 'timestamp' 
+    | IN ROLE rolename [, ...]
+    | IN GROUP rolename [, ...]
+    | ROLE rolename [, ...]
+    | ADMIN rolename [, ...]
+    | USER rolename [, ...]
+    | SYSID uid
+
+Command:     CREATE RULE
+Description: define a new rewrite rule
+Syntax:
+CREATE [ OR REPLACE ] RULE name AS ON event
+    TO table [ WHERE condition ]
+    DO [ ALSO | INSTEAD ] { NOTHING | command | ( command ; command ... ) }
+
+Command:     CREATE SCHEMA
+Description: define a new schema
+Syntax:
+CREATE SCHEMA schemaname [ AUTHORIZATION username ] [ schema_element [ ... ] ]
+CREATE SCHEMA AUTHORIZATION username [ schema_element [ ... ] ]
+
+Command:     CREATE SEQUENCE
+Description: define a new sequence generator
+Syntax:
+CREATE [ TEMPORARY | TEMP ] SEQUENCE name [ INCREMENT [ BY ] increment ]
+    [ MINVALUE minvalue | NO MINVALUE ] [ MAXVALUE maxvalue | NO MAXVALUE ]
+    [ START [ WITH ] start ] [ CACHE cache ] [ [ NO ] CYCLE ]
+
+Command:     CREATE TABLE
+Description: define a new table
+Syntax:
+CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } ] TABLE table_name ( [
+  { column_name data_type [ DEFAULT default_expr ] [ column_constraint [ ... ] ]
+    | table_constraint
+    | LIKE parent_table [ { INCLUDING | EXCLUDING } DEFAULTS ] }
+    [, ... ]
+] )
+[ INHERITS ( parent_table [, ... ] ) ]
+[ WITH OIDS | WITHOUT OIDS ]
+[ ON COMMIT { PRESERVE ROWS | DELETE ROWS | DROP } ]
+[ TABLESPACE tablespace ]
+
+where column_constraint is:
+
+[ CONSTRAINT constraint_name ]
+{ NOT NULL | 
+  NULL | 
+  UNIQUE [ USING INDEX TABLESPACE tablespace ] |
+  PRIMARY KEY [ USING INDEX TABLESPACE tablespace ] |
+  CHECK (expression) |
+  REFERENCES reftable [ ( refcolumn ) ] [ MATCH FULL | MATCH PARTIAL | MATCH SIMPLE ]
+    [ ON DELETE action ] [ ON UPDATE action ] }
+[ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]
+
+and table_constraint is:
+
+[ CONSTRAINT constraint_name ]
+{ UNIQUE ( column_name [, ... ] ) [ USING INDEX TABLESPACE tablespace ] |
+  PRIMARY KEY ( column_name [, ... ] ) [ USING INDEX TABLESPACE tablespace ] |
+  CHECK ( expression ) |
+  FOREIGN KEY ( column_name [, ... ] ) REFERENCES reftable [ ( refcolumn [, ... ] ) ]
+    [ MATCH FULL | MATCH PARTIAL | MATCH SIMPLE ] [ ON DELETE action ] [ ON UPDATE action ] }
+[ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]
+
+Command:     CREATE TABLE AS
+Description: define a new table from the results of a query
+Syntax:
+CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } ] TABLE table_name
+    [ (column_name [, ...] ) ] [ [ WITH | WITHOUT ] OIDS ]
+    AS query
+
+Command:     CREATE TABLESPACE
+Description: define a new tablespace
+Syntax:
+CREATE TABLESPACE tablespacename [ OWNER username ] LOCATION 'directory'
+
+Command:     CREATE TRIGGER
+Description: define a new trigger
+Syntax:
+CREATE TRIGGER name { BEFORE | AFTER } { event [ OR ... ] }
+    ON table [ FOR [ EACH ] { ROW | STATEMENT } ]
+    EXECUTE PROCEDURE funcname ( arguments )
+
+Command:     CREATE TYPE
+Description: define a new data type
+Syntax:
+CREATE TYPE name AS
+    ( attribute_name data_type [, ... ] )
+
+CREATE TYPE name (
+    INPUT = input_function,
+    OUTPUT = output_function
+    [ , RECEIVE = receive_function ]
+    [ , SEND = send_function ]
+    [ , ANALYZE = analyze_function ]
+    [ , INTERNALLENGTH = { internallength | VARIABLE } ]
+    [ , PASSEDBYVALUE ]
+    [ , ALIGNMENT = alignment ]
+    [ , STORAGE = storage ]
+    [ , DEFAULT = default ]
+    [ , ELEMENT = element ]
+    [ , DELIMITER = delimiter ]
+)
+
+Command:     CREATE USER
+Description: define a new database role
+Syntax:
+CREATE USER name [ [ WITH ] option [ ... ] ]
+
+where option can be:
+    
+      SUPERUSER | NOSUPERUSER
+    | CREATEDB | NOCREATEDB
+    | CREATEROLE | NOCREATEROLE
+    | CREATEUSER | NOCREATEUSER
+    | INHERIT | NOINHERIT
+    | LOGIN | NOLOGIN
+    | CONNECTION LIMIT connlimit
+    | [ ENCRYPTED | UNENCRYPTED ] PASSWORD 'password'
+    | VALID UNTIL 'timestamp' 
+    | IN ROLE rolename [, ...]
+    | IN GROUP rolename [, ...]
+    | ROLE rolename [, ...]
+    | ADMIN rolename [, ...]
+    | USER rolename [, ...]
+    | SYSID uid
+
+Command:     CREATE VIEW
+Description: define a new view
+Syntax:
+CREATE [ OR REPLACE ] [ TEMP | TEMPORARY ] VIEW name [ ( column_name [, ...] ) ]
+    AS query
+
+Command:     DEALLOCATE
+Description: deallocate a prepared statement
+Syntax:
+DEALLOCATE [ PREPARE ] plan_name
+
+Command:     DECLARE
+Description: define a cursor
+Syntax:
+DECLARE name [ BINARY ] [ INSENSITIVE ] [ [ NO ] SCROLL ]
+    CURSOR [ { WITH | WITHOUT } HOLD ] FOR query
+    [ FOR { READ ONLY | UPDATE [ OF column [, ...] ] } ]
+
+Command:     DELETE
+Description: delete rows of a table
+Syntax:
+DELETE FROM [ ONLY ] table
+    [ USING usinglist ]
+    [ WHERE condition ]
+
+Command:     DROP AGGREGATE
+Description: remove an aggregate function
+Syntax:
+DROP AGGREGATE name ( type ) [ CASCADE | RESTRICT ]
+
+Command:     DROP CAST
+Description: remove a cast
+Syntax:
+DROP CAST (sourcetype AS targettype) [ CASCADE | RESTRICT ]
+
+Command:     DROP CONVERSION
+Description: remove a conversion
+Syntax:
+DROP CONVERSION name [ CASCADE | RESTRICT ]
+
+Command:     DROP DATABASE
+Description: remove a database
+Syntax:
+DROP DATABASE name
+
+Command:     DROP DOMAIN
+Description: remove a domain
+Syntax:
+DROP DOMAIN name [, ...]  [ CASCADE | RESTRICT ]
+
+Command:     DROP FUNCTION
+Description: remove a function
+Syntax:
+DROP FUNCTION name ( [ [ argmode ] [ argname ] argtype [, ...] ] )
+    [ CASCADE | RESTRICT ]
+
+Command:     DROP GROUP
+Description: remove a database role
+Syntax:
+DROP GROUP name [, ...]
+
+Command:     DROP INDEX
+Description: remove an index
+Syntax:
+DROP INDEX name [, ...] [ CASCADE | RESTRICT ]
+
+Command:     DROP LANGUAGE
+Description: remove a procedural language
+Syntax:
+DROP [ PROCEDURAL ] LANGUAGE name [ CASCADE | RESTRICT ]
+
+Command:     DROP OPERATOR CLASS
+Description: remove an operator class
+Syntax:
+DROP OPERATOR CLASS name USING index_method [ CASCADE | RESTRICT ]
+
+Command:     DROP OPERATOR
+Description: remove an operator
+Syntax:
+DROP OPERATOR name ( { lefttype | NONE } , { righttype | NONE } ) [ CASCADE | RESTRICT ]
+
+Command:     DROP ROLE
+Description: remove a database role
+Syntax:
+DROP ROLE name [, ...]
+
+Command:     DROP RULE
+Description: remove a rewrite rule
+Syntax:
+DROP RULE name ON relation [ CASCADE | RESTRICT ]
+
+Command:     DROP SCHEMA
+Description: remove a schema
+Syntax:
+DROP SCHEMA name [, ...] [ CASCADE | RESTRICT ]
+
+Command:     DROP SEQUENCE
+Description: remove a sequence
+Syntax:
+DROP SEQUENCE name [, ...] [ CASCADE | RESTRICT ]
+
+Command:     DROP TABLE
+Description: remove a table
+Syntax:
+DROP TABLE name [, ...] [ CASCADE | RESTRICT ]
+
+Command:     DROP TABLESPACE
+Description: remove a tablespace
+Syntax:
+DROP TABLESPACE tablespacename
+
+Command:     DROP TRIGGER
+Description: remove a trigger
+Syntax:
+DROP TRIGGER name ON table [ CASCADE | RESTRICT ]
+
+Command:     DROP TYPE
+Description: remove a data type
+Syntax:
+DROP TYPE name [, ...] [ CASCADE | RESTRICT ]
+
+Command:     DROP USER
+Description: remove a database role
+Syntax:
+DROP USER name [, ...]
+
+Command:     DROP VIEW
+Description: remove a view
+Syntax:
+DROP VIEW name [, ...] [ CASCADE | RESTRICT ]
+
+Command:     END
+Description: commit the current transaction
+Syntax:
+END [ WORK | TRANSACTION ]
+
+Command:     EXECUTE
+Description: execute a prepared statement
+Syntax:
+EXECUTE plan_name [ (parameter [, ...] ) ]
+
+Command:     EXPLAIN
+Description: show the execution plan of a statement
+Syntax:
+EXPLAIN [ ANALYZE ] [ VERBOSE ] statement
+
+Command:     FETCH
+Description: retrieve rows from a query using a cursor
+Syntax:
+FETCH [ direction { FROM | IN } ] cursorname
+
+where direction can be empty or one of:
+
+    NEXT
+    PRIOR
+    FIRST
+    LAST
+    ABSOLUTE count
+    RELATIVE count
+    count
+    ALL
+    FORWARD
+    FORWARD count
+    FORWARD ALL
+    BACKWARD
+    BACKWARD count
+    BACKWARD ALL
+
+Command:     GRANT
+Description: define access privileges
+Syntax:
+GRANT { { SELECT | INSERT | UPDATE | DELETE | RULE | REFERENCES | TRIGGER }
+    [,...] | ALL [ PRIVILEGES ] }
+    ON [ TABLE ] tablename [, ...]
+    TO { username | GROUP groupname | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+
+GRANT { { CREATE | TEMPORARY | TEMP } [,...] | ALL [ PRIVILEGES ] }
+    ON DATABASE dbname [, ...]
+    TO { username | GROUP groupname | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+
+GRANT { EXECUTE | ALL [ PRIVILEGES ] }
+    ON FUNCTION funcname ( [ [ argmode ] [ argname ] argtype [, ...] ] ) [, ...]
+    TO { username | GROUP groupname | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+
+GRANT { USAGE | ALL [ PRIVILEGES ] }
+    ON LANGUAGE langname [, ...]
+    TO { username | GROUP groupname | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+
+GRANT { { CREATE | USAGE } [,...] | ALL [ PRIVILEGES ] }
+    ON SCHEMA schemaname [, ...]
+    TO { username | GROUP groupname | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+
+GRANT { CREATE | ALL [ PRIVILEGES ] }
+    ON TABLESPACE tablespacename [, ...]
+    TO { username | GROUP groupname | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+
+GRANT role [, ...]
+    TO { username | GROUP groupname | PUBLIC } [, ...] [ WITH ADMIN OPTION ]
+
+Command:     INSERT
+Description: create new rows in a table
+Syntax:
+INSERT INTO table [ ( column [, ...] ) ]
+    { DEFAULT VALUES | VALUES ( { expression | DEFAULT } [, ...] ) | query }
+
+Command:     LISTEN
+Description: listen for a notification
+Syntax:
+LISTEN name
+
+Command:     LOAD
+Description: load or reload a shared library file
+Syntax:
+LOAD 'filename'
+
+Command:     LOCK
+Description: lock a table
+Syntax:
+LOCK [ TABLE ] name [, ...] [ IN lockmode MODE ] [ NOWAIT ]
+
+where lockmode is one of:
+
+    ACCESS SHARE | ROW SHARE | ROW EXCLUSIVE | SHARE UPDATE EXCLUSIVE
+    | SHARE | SHARE ROW EXCLUSIVE | EXCLUSIVE | ACCESS EXCLUSIVE
+
+Command:     MOVE
+Description: position a cursor
+Syntax:
+MOVE [ direction { FROM | IN } ] cursorname
+
+Command:     NOTIFY
+Description: generate a notification
+Syntax:
+NOTIFY name
+
+Command:     PREPARE
+Description: prepare a statement for execution
+Syntax:
+PREPARE plan_name [ (datatype [, ...] ) ] AS statement
+
+Command:     PREPARE TRANSACTION
+Description: prepare the current transaction for two-phase commit
+Syntax:
+PREPARE TRANSACTION transaction_id
+
+Command:     REINDEX
+Description: rebuild indexes
+Syntax:
+REINDEX { INDEX | TABLE | DATABASE | SYSTEM } name [ FORCE ]
+
+Command:     RELEASE SAVEPOINT
+Description: destroy a previously defined savepoint
+Syntax:
+RELEASE [ SAVEPOINT ] savepoint_name
+
+Command:     RESET
+Description: restore the value of a run-time parameter to the default value
+Syntax:
+RESET name
+RESET ALL
+
+Command:     REVOKE
+Description: remove access privileges
+Syntax:
+REVOKE [ GRANT OPTION FOR ]
+    { { SELECT | INSERT | UPDATE | DELETE | RULE | REFERENCES | TRIGGER }
+    [,...] | ALL [ PRIVILEGES ] }
+    ON [ TABLE ] tablename [, ...]
+    FROM { username | GROUP groupname | PUBLIC } [, ...]
+    [ CASCADE | RESTRICT ]
+
+REVOKE [ GRANT OPTION FOR ]
+    { { CREATE | TEMPORARY | TEMP } [,...] | ALL [ PRIVILEGES ] }
+    ON DATABASE dbname [, ...]
+    FROM { username | GROUP groupname | PUBLIC } [, ...]
+    [ CASCADE | RESTRICT ]
+
+REVOKE [ GRANT OPTION FOR ]
+    { EXECUTE | ALL [ PRIVILEGES ] }
+    ON FUNCTION funcname ( [ [ argmode ] [ argname ] argtype [, ...] ] ) [, ...]
+    FROM { username | GROUP groupname | PUBLIC } [, ...]
+    [ CASCADE | RESTRICT ]
+
+REVOKE [ GRANT OPTION FOR ]
+    { USAGE | ALL [ PRIVILEGES ] }
+    ON LANGUAGE langname [, ...]
+    FROM { username | GROUP groupname | PUBLIC } [, ...]
+    [ CASCADE | RESTRICT ]
+
+REVOKE [ GRANT OPTION FOR ]
+    { { CREATE | USAGE } [,...] | ALL [ PRIVILEGES ] }
+    ON SCHEMA schemaname [, ...]
+    FROM { username | GROUP groupname | PUBLIC } [, ...]
+    [ CASCADE | RESTRICT ]
+
+REVOKE [ GRANT OPTION FOR ]
+    { CREATE | ALL [ PRIVILEGES ] }
+    ON TABLESPACE tablespacename [, ...]
+    FROM { username | GROUP groupname | PUBLIC } [, ...]
+    [ CASCADE | RESTRICT ]
+
+REVOKE [ ADMIN OPTION FOR ]
+    role [, ...]
+    FROM { username | GROUP groupname | PUBLIC } [, ...]
+    [ CASCADE | RESTRICT ]
+
+Command:     ROLLBACK
+Description: abort the current transaction
+Syntax:
+ROLLBACK [ WORK | TRANSACTION ]
+
+Command:     ROLLBACK PREPARED
+Description: cancel a transaction that was earlier prepared for two-phase commit
+Syntax:
+ROLLBACK PREPARED transaction_id
+
+Command:     ROLLBACK TO SAVEPOINT
+Description: roll back to a savepoint
+Syntax:
+ROLLBACK [ WORK | TRANSACTION ] TO [ SAVEPOINT ] savepoint_name
+
+Command:     SAVEPOINT
+Description: define a new savepoint within the current transaction
+Syntax:
+SAVEPOINT savepoint_name
+
+Command:     SELECT
+Description: retrieve rows from a table or view
+Syntax:
+SELECT [ ALL | DISTINCT [ ON ( expression [, ...] ) ] ]
+    * | expression [ AS output_name ] [, ...]
+    [ FROM from_item [, ...] ]
+    [ WHERE condition ]
+    [ GROUP BY expression [, ...] ]
+    [ HAVING condition [, ...] ]
+    [ { UNION | INTERSECT | EXCEPT } [ ALL ] select ]
+    [ ORDER BY expression [ ASC | DESC | USING operator ] [, ...] ]
+    [ LIMIT { count | ALL } ]
+    [ OFFSET start ]
+    [ FOR { UPDATE | SHARE } [ OF table_name [, ...] ] [ NOWAIT ] ]
+
+where from_item can be one of:
+
+    [ ONLY ] table_name [ * ] [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+    ( select ) [ AS ] alias [ ( column_alias [, ...] ) ]
+    function_name ( [ argument [, ...] ] ) [ AS ] alias [ ( column_alias [, ...] | column_definition [, ...] ) ]
+    function_name ( [ argument [, ...] ] ) AS ( column_definition [, ...] )
+    from_item [ NATURAL ] join_type from_item [ ON join_condition | USING ( join_column [, ...] ) ]
+
+Command:     SELECT INTO
+Description: define a new table from the results of a query
+Syntax:
+SELECT [ ALL | DISTINCT [ ON ( expression [, ...] ) ] ]
+    * | expression [ AS output_name ] [, ...]
+    INTO [ TEMPORARY | TEMP ] [ TABLE ] new_table
+    [ FROM from_item [, ...] ]
+    [ WHERE condition ]
+    [ GROUP BY expression [, ...] ]
+    [ HAVING condition [, ...] ]
+    [ { UNION | INTERSECT | EXCEPT } [ ALL ] select ]
+    [ ORDER BY expression [ ASC | DESC | USING operator ] [, ...] ]
+    [ LIMIT { count | ALL } ]
+    [ OFFSET start ]
+    [ FOR { UPDATE | SHARE } [ OF table_name [, ...] ] [ NOWAIT ] ]
+
+Command:     SET
+Description: change a run-time parameter
+Syntax:
+SET [ SESSION | LOCAL ] name { TO | = } { value | 'value' | DEFAULT }
+SET [ SESSION | LOCAL ] TIME ZONE { timezone | LOCAL | DEFAULT }
+
+Command:     SET CONSTRAINTS
+Description: set constraint checking modes for the current transaction
+Syntax:
+SET CONSTRAINTS { ALL | name [, ...] } { DEFERRED | IMMEDIATE }
+
+Command:     SET ROLE
+Description: set the current user identifier of the current session
+Syntax:
+SET [ SESSION | LOCAL ] ROLE rolename
+SET [ SESSION | LOCAL ] ROLE NONE
+RESET ROLE
+
+Command:     SET SESSION AUTHORIZATION
+Description: set the session user identifier and the current user identifier of the current session
+Syntax:
+SET [ SESSION | LOCAL ] SESSION AUTHORIZATION username
+SET [ SESSION | LOCAL ] SESSION AUTHORIZATION DEFAULT
+RESET SESSION AUTHORIZATION
+
+Command:     SET TRANSACTION
+Description: set the characteristics of the current transaction
+Syntax:
+SET TRANSACTION transaction_mode [, ...]
+SET SESSION CHARACTERISTICS AS TRANSACTION transaction_mode [, ...]
+
+where transaction_mode is one of:
+
+    ISOLATION LEVEL { SERIALIZABLE | REPEATABLE READ | READ COMMITTED | READ UNCOMMITTED }
+    READ WRITE | READ ONLY
+
+Command:     SHOW
+Description: show the value of a run-time parameter
+Syntax:
+SHOW name
+SHOW ALL
+
+Command:     START TRANSACTION
+Description: start a transaction block
+Syntax:
+START TRANSACTION [ transaction_mode [, ...] ]
+
+where transaction_mode is one of:
+
+    ISOLATION LEVEL { SERIALIZABLE | REPEATABLE READ | READ COMMITTED | READ UNCOMMITTED }
+    READ WRITE | READ ONLY
+
+Command:     TRUNCATE
+Description: empty a table or set of tables
+Syntax:
+TRUNCATE [ TABLE ] name [, ...]
+
+Command:     UNLISTEN
+Description: stop listening for a notification
+Syntax:
+UNLISTEN { name | * }
+
+Command:     UPDATE
+Description: update rows of a table
+Syntax:
+UPDATE [ ONLY ] table SET column = { expression | DEFAULT } [, ...]
+    [ FROM fromlist ]
+    [ WHERE condition ]
+
+Command:     VACUUM
+Description: garbage-collect and optionally analyze a database
+Syntax:
+VACUUM [ FULL | FREEZE ] [ VERBOSE ] [ table ]
+VACUUM [ FULL | FREEZE ] [ VERBOSE ] ANALYZE [ table [ (column [, ...] ) ] ]
+
