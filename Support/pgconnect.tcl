@@ -12,8 +12,24 @@ proc connect_dialog { } {
   set w [toplevel .dlg]
   wm title .dlg "Connection Info"
   .dlg configure -bg lightblue
+  frame .dlg.savedFrame
   frame .dlg.f -bg lightblue
-  pack .dlg.f -anchor s -padx 15 -pady 5 -expand 1 -fill both
+  pack .dlg.savedFrame -side left -anchor nw -padx 15 -pady 5 -fill y
+  pack .dlg.f -side right -anchor ne -padx 15 -pady 5 -expand 0 -fill both
+
+  #  Create the saved list
+  #
+  grid [listbox .dlg.savedFrame.listbSaved -yscrollcommand ".dlg.savedFrame.scrolllist set"] -column 0 -row 0 -columnspan 3 -sticky nsew
+  grid [scrollbar .dlg.savedFrame.scrolllist -command ".dlg.savedFrame.listbSaved yview" -orient vertical] -column 3 -row 0 -sticky ns
+  image create photo .dlg.savedFrame.trashIcon -file [file join [file dirname [file normalize [info script]]] "Support" "trash16.png"]
+  grid [button .dlg.savedFrame.delBut -image .dlg.savedFrame.trashIcon] -column 0 -row 1 
+  grid [button .dlg.savedFrame.loadBut -text "Load"] -column 1 -row 1
+  grid [button .dlg.savedFrame.saveBut -text "Save"] -column 2 -row 1
+  bind .dlg.savedFrame.listbSaved <Double-Button-1> "consEditConf"
+  bind .dlg.savedFrame.listbSaved {%W yview scroll [expr {%D/-120}] units}
+  grid rowconfigure .dlg.savedFrame 0 -weight 1
+  grid columnconfigure .dlg.savedFrame 0 -weight 1
+
   
   #  Create the labels and entry fields for this dialog
   #
@@ -46,7 +62,7 @@ proc connect_dialog { } {
   }
 
   #  Create the "Connect" and "Cancel" buttons
-  add_button .dlg.f.cancel  "Cancel"  {exit}          1 
+  add_button .dlg.f.cancel  "Cancel"  {exit}  1
   add_button .dlg.f.default "Connect" {set result Ok} 2
 
   .dlg.f.default configure -default active
