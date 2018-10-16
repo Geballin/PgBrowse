@@ -12,19 +12,19 @@ proc connect_dialog { } {
   set w [toplevel .dlg]
   wm title .dlg "Connection Info"
   .dlg configure -bg lightblue
-  frame .dlg.savedFrame
+  frame .dlg.savedFrame -bg lightblue
   frame .dlg.f -bg lightblue
-  pack .dlg.savedFrame -side left -anchor nw -padx 15 -pady 5 -fill y
-  pack .dlg.f -side right -anchor ne -padx 15 -pady 5 -expand 0 -fill both
+  pack .dlg.savedFrame -side left -anchor sw -padx 15 -pady 5 -fill y
+  pack .dlg.f -side right -anchor ne -padx 15 -pady 5 -fill both
 
   #  Create the saved list
   #
-  grid [listbox .dlg.savedFrame.listbSaved -yscrollcommand ".dlg.savedFrame.scrolllist set"] -column 0 -row 0 -columnspan 3 -sticky nsew
+  grid [listbox .dlg.savedFrame.listbSaved -height 1 -yscrollcommand ".dlg.savedFrame.scrolllist set"] -column 0 -row 0 -columnspan 3 -sticky nsew
   grid [scrollbar .dlg.savedFrame.scrolllist -command ".dlg.savedFrame.listbSaved yview" -orient vertical] -column 3 -row 0 -sticky ns
   image create photo .dlg.savedFrame.trashIcon -file [file join [file dirname [file normalize [info script]]] "Support" "trash16.png"]
   grid [button .dlg.savedFrame.delBut -image .dlg.savedFrame.trashIcon] -column 0 -row 1 
-  grid [button .dlg.savedFrame.loadBut -text "Load"] -column 1 -row 1
-  grid [button .dlg.savedFrame.saveBut -text "Save"] -column 2 -row 1
+  grid [button .dlg.savedFrame.loadBut -text "Load"] -column 1 -row 1  -pady 5
+  grid [button .dlg.savedFrame.saveBut -text "Save"] -column 2 -row 1  -pady 5
   bind .dlg.savedFrame.listbSaved <Double-Button-1> "consEditConf"
   bind .dlg.savedFrame.listbSaved {%W yview scroll [expr {%D/-120}] units}
   grid rowconfigure .dlg.savedFrame 0 -weight 1
@@ -67,7 +67,8 @@ proc connect_dialog { } {
   add_button .dlg.f.default "Connect" {set result Ok} 2
 
   .dlg.f.default configure -default active
-
+  update
+  wm minsize .dlg [winfo width .dlg] [winfo height .dlg]
   vwait result
 
   set result ""
@@ -117,12 +118,13 @@ proc add_button { path text command column } {
 
 	if { $column == 1 } {
 	  set _next_row  [expr {$_next_row + 1}]
-	  set sticky "w"
-	} else { set sticky "e"	}
+	  set sticky "ws"
+	} else { set sticky "es"	}
 
 	button $path -text $text -command $command -highlightbackground lightblue 
 	grid   $path -row $_next_row -column $column -sticky $sticky -pady 5
-
+	grid rowconfigure $path $_next_row -weight 1
+	grid columnconfigure $path $column -weight 1
 	bind $path <Return> "$path invoke"
 }
 
