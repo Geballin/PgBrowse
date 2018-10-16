@@ -63,6 +63,7 @@ proc connect_dialog { } {
 
   #  Create the "Connect" and "Cancel" buttons
   add_button .dlg.f.cancel  "Cancel"  {exit}  1
+  wm protocol .dlg WM_DELETE_WINDOW {exit}
   add_button .dlg.f.default "Connect" {set result Ok} 2
 
   .dlg.f.default configure -default active
