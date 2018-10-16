@@ -372,7 +372,6 @@ proc pg_conndefaults {} {
     [list user     Database-User    {} 20 $user] \
     [list password Database-Password *  20 [pgtcl::default {} PGPASSWORD]] \
     [list host     Database-Host    {} 40 [pgtcl::default localhost PGHOST]] \
-         {hostaddr Database-Host-IP-Address {} 45 {}} \
     [list port     Database-Port    {}  6 [pgtcl::default 5432 PGPORT]] \
     [list dbname   Database-Name    {} 20 [pgtcl::default $user PGDATABASE]] \
     [list tty      Backend-Debug-TTY  D 40 [pgtcl::default {} PGTTY]] \
