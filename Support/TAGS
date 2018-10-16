@@ -141,11 +141,11 @@ proc Help {} {Help2,1
 
 help/createIndex.sh,0
 
-pgconnect.tcl,214
+pgconnect.tcl,215
 proc connect_dialog { } {connect_dialog3,29
-proc add_label_field { w text textvar } {add_label_field78,1525
-proc add_button { path text command column } {add_button97,1984
-proc connect { } {connect112,2364
+proc add_label_field { w text textvar } {add_label_field95,2618
+proc add_button { path text command column } {add_button114,3077
+proc connect { } {connect130,3551
 
 tableViewbak.tcl,816
 proc make_table1 { parent } {make_table110,170
@@ -215,8 +215,6 @@ proc ClearBigImages {} {ClearBigImages288,7744
 proc ReadFile {name} {ReadFile298,7917
 proc LoadFile {name} {LoadFile312,8216
 proc Refresh {args} {Refresh326,8474
-
-._docViewer.tcl,0
 
 hv1.tcl,739
 proc ChangeUnderline args {ChangeUnderline85,2624
