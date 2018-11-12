@@ -43,9 +43,9 @@ proc pg_removeconfignamed {configname} {
 }
 
 proc del_config {configname} {
-  global dlg_savedFrame_scrolllist_value
+  global DLG_SAVEDFRAME_SCROLLLIST_VALUE
   if {[tk_messageBox -message "Are you sure you want to delete $configname from the list of the configurations available ?" -type yesno]} {
-      set dlg_savedFrame_scrolllist_value [pg_removeconfignamed $configname]
+      set DLG_SAVEDFRAME_SCROLLLIST_VALUE [pg_removeconfignamed $configname]
     }
 }
 
@@ -68,16 +68,16 @@ proc save_config {} {
 		    dict append configDict $textvariable [set $textvariable]
 		}
 	    pg_addconfignamed $entryReturn $configDict
-	    global dlg_savedFrame_scrolllist_value
-	    set dlg_savedFrame_scrolllist_value [pg_connpopulate]
+	    global DLG_SAVEDFRAME_SCROLLLIST_VALUE
+	    set DLG_SAVEDFRAME_SCROLLLIST_VALUE [pg_connpopulate]
 	}}} \
 	[entry_dialog "Configuration name :" "pgBrowse" [expr {[.dlg.savedFrame.listbSaved curselection] != ""?[.dlg.savedFrame.listbSaved get [.dlg.savedFrame.listbSaved curselection]]:{}}] .dlg]
 }
 
 proc entry_dialog {message {title {}} {default_entry {}} {parentWindow .}} {
-    global entryValue
-    set entryValue {}
-    set okAction {set entryValue [.entrydlg.entry get];destroy .entrydlg}
+    global ENTRY_VALUE
+    set ENTRY_VALUE {}
+    set okAction {set ENTRY_VALUE [.entrydlg.entry get];destroy .entrydlg}
     set cancelAction {destroy .entrydlg}
     
     toplevel .entrydlg
@@ -98,12 +98,12 @@ proc entry_dialog {message {title {}} {default_entry {}} {parentWindow .}} {
 
     focus .entrydlg.entry
     tkwait window .entrydlg
-    return $entryValue
+    return $ENTRY_VALUE
 }
 
 proc connect_dialog { } {
-  global _next_row
-  set _next_row 0
+  global _NEXT_ROW
+  set _NEXT_ROW 0
   set set_focus true
   
   #  Create a new window with the title 
@@ -119,10 +119,10 @@ proc connect_dialog { } {
 
   #  Create the saved list
   #
-  global dlg_savedFrame_scrolllist_value
-  set dlg_savedFrame_scrolllist_value [pg_connpopulate]
+  global DLG_SAVEDFRAME_SCROLLLIST_VALUE
+  set DLG_SAVEDFRAME_SCROLLLIST_VALUE [pg_connpopulate]
   
-  grid [listbox .dlg.savedFrame.listbSaved -listvariable dlg_savedFrame_scrolllist_value -height 1 -yscrollcommand ".dlg.savedFrame.scrolllist set"] -column 0 -row 0 -columnspan 3 -sticky nsew
+  grid [listbox .dlg.savedFrame.listbSaved -listvariable DLG_SAVEDFRAME_SCROLLLIST_VALUE -height 1 -yscrollcommand ".dlg.savedFrame.scrolllist set"] -column 0 -row 0 -columnspan 3 -sticky nsew
   grid [scrollbar .dlg.savedFrame.scrolllist -command ".dlg.savedFrame.listbSaved yview" -orient vertical] -column 3 -row 0 -sticky ns
   image create photo .dlg.savedFrame.trashIcon -file [file join [file dirname [file normalize [info script]]] "Support" "trash16.png"]
   grid [button .dlg.savedFrame.delBut -image .dlg.savedFrame.trashIcon -command \
@@ -195,17 +195,17 @@ proc connect_dialog { } {
 
 proc add_label_field { w text textvar } {
 
-	global _next_row 
+	global _NEXT_ROW 
 
-	set _next_row  [expr {$_next_row + 1}]
+	set _NEXT_ROW  [expr {$_NEXT_ROW + 1}]
 	set label_path "$w.label_$textvar"
 	set entry_path "$w.$textvar"
 
 	label $label_path -text $text -bg lightblue
-	grid  $label_path -row $_next_row -column 1 -sticky e
+	grid  $label_path -row $_NEXT_ROW -column 1 -sticky e
 
 	entry $entry_path -textvariable $textvar
-	grid  $entry_path -row $_next_row -column 2 -sticky w
+	grid  $entry_path -row $_NEXT_ROW -column 2 -sticky w
 
 	bind $entry_path <Return> "$w.default invoke"
 
@@ -214,16 +214,16 @@ proc add_label_field { w text textvar } {
 
 proc add_button { path text command column } {
 
-	global _next_row 
+	global _NEXT_ROW 
 
 	if { $column == 1 } {
-	  set _next_row  [expr {$_next_row + 1}]
+	  set _NEXT_ROW  [expr {$_NEXT_ROW + 1}]
 	  set sticky "ws"
 	} else { set sticky "es"	}
 
 	button $path -text $text -command $command -highlightbackground lightblue 
-	grid   $path -row $_next_row -column $column -sticky $sticky -pady 5
-	grid rowconfigure $path $_next_row -weight 1
+	grid   $path -row $_NEXT_ROW -column $column -sticky $sticky -pady 5
+	grid rowconfigure $path $_NEXT_ROW -weight 1
 	grid columnconfigure $path $column -weight 1
 	bind $path <Return> "$path invoke"
 }
