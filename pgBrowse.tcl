@@ -85,7 +85,7 @@ proc main { } {
     }
     
     set linux 0
-    if { [file exists "/usr/bin/nautilus" ]} {
+    if { [tk windowingsystem ] eq "x11"} {
       set linux 1
     }
     # build the user interface
@@ -346,7 +346,7 @@ proc OpenScriptsFolder {} {
     catch { eval exec explorer {[file nativename ~/SQLScripts]} }
   }
   if { $linux } {
-    exec /usr/bin/nautilus [glob ~/SQLScripts] &
+    exec xdg-open [glob ~/SQLScripts] &
   }
 }
 proc RebuildScriptsMenu {} {
