@@ -1,7 +1,65 @@
 # Filename: pgconnect.tcl
 
+proc del_config {configname} {
+  global dlg_savedFrame_scrolllist_value
+  if {[tk_messageBox -message "Are you sure you want to delete $configname from the list of the configurations available ?" -type yesno]} {
+      set dlg_savedFrame_scrolllist_value [pg_removeconfig $configname]
+    }
+}
+
+proc load_config {configname} {
+    set config [pg_getconfignamed $configname]
+    lmap element [pg_conndefaults] {
+	set textvariable [lindex $element 0]
+	global $textvariable
+	set $textvariable [dict get $config $textvariable]
+    }
+}
+
+proc save_config {} {
+    apply {{entryReturn} {
+	if {$entryReturn ne ""} {
+	    set configDict {}
+	        lmap element [pg_conndefaults] {
+		    set textvariable [lindex $element 0]
+		    global $textvariable
+		    dict append configDict $textvariable [set $textvariable]
+		}
+	    pg_addconfignamed $entryReturn $configDict
+	    global dlg_savedFrame_scrolllist_value
+	    set dlg_savedFrame_scrolllist_value [pg_connpopulate]
+	}}} \
+	[entry_dialog "Configuration name :" "pgBrowse" [expr {[.dlg.savedFrame.listbSaved curselection] != ""?[.dlg.savedFrame.listbSaved get [.dlg.savedFrame.listbSaved curselection]]:{}}] .dlg]
+}
+
+proc entry_dialog {message {title {}} {default_entry {}} {parentWindow .}} {
+    global entryValue
+    set entryValue {}
+    set okAction {set entryValue [.entrydlg.entry get];destroy .entrydlg}
+    set cancelAction {destroy .entrydlg}
+    
+    toplevel .entrydlg
+    pack [label .entrydlg.lbl -text $message] -side top
+    pack [entry .entrydlg.entry ] -side top
+    pack [button .entrydlg.okbut -text "OK" -default active -command $okAction] -side right
+    pack [button .entrydlg.cancelbut -text "Cancel" -command $cancelAction] -side right
+
+    bind .entrydlg <Key-Return> $okAction
+    bind .entrydlg <Key-Escape> $cancelAction
+
+    .entrydlg.entry delete 0
+    .entrydlg.entry insert 0 $default_entry
+    
+    wm title .entrydlg $title
+    wm attributes .entrydlg -type dialog
+    wm transient .entrydlg $parentWindow
+
+    focus .entrydlg.entry
+    tkwait window .entrydlg
+    return $entryValue
+}
+
 proc connect_dialog { } {
-	
   global _next_row
   set _next_row 0
   set set_focus true
@@ -19,17 +77,25 @@ proc connect_dialog { } {
 
   #  Create the saved list
   #
-  grid [listbox .dlg.savedFrame.listbSaved -height 1 -yscrollcommand ".dlg.savedFrame.scrolllist set"] -column 0 -row 0 -columnspan 3 -sticky nsew
+  global dlg_savedFrame_scrolllist_value
+  set dlg_savedFrame_scrolllist_value [pg_connpopulate]
+  
+  grid [listbox .dlg.savedFrame.listbSaved -listvariable dlg_savedFrame_scrolllist_value -height 1 -yscrollcommand ".dlg.savedFrame.scrolllist set"] -column 0 -row 0 -columnspan 3 -sticky nsew
   grid [scrollbar .dlg.savedFrame.scrolllist -command ".dlg.savedFrame.listbSaved yview" -orient vertical] -column 3 -row 0 -sticky ns
   image create photo .dlg.savedFrame.trashIcon -file [file join [file dirname [file normalize [info script]]] "Support" "trash16.png"]
-  grid [button .dlg.savedFrame.delBut -image .dlg.savedFrame.trashIcon] -column 0 -row 1 
-  grid [button .dlg.savedFrame.loadBut -text "Load"] -column 1 -row 1  -pady 5
-  grid [button .dlg.savedFrame.saveBut -text "Save"] -column 2 -row 1  -pady 5
+  grid [button .dlg.savedFrame.delBut -image .dlg.savedFrame.trashIcon -command \
+	    {if {[.dlg.savedFrame.listbSaved curselection] != ""} {
+		del_config [.dlg.savedFrame.listbSaved get [lindex [.dlg.savedFrame.listbSaved curselection] 0]]}} \
+       ] -column 0 -row 1 
+  grid [button .dlg.savedFrame.loadBut -text "Load" -command \
+	    {if {[.dlg.savedFrame.listbSaved curselection] != ""} {
+		load_config [.dlg.savedFrame.listbSaved get [lindex [.dlg.savedFrame.listbSaved curselection] 0]]}} \
+       ] -column 1 -row 1  -pady 5
+    grid [button .dlg.savedFrame.saveBut -text "Save" -command save_config] -column 2 -row 1  -pady 5
   bind .dlg.savedFrame.listbSaved <Double-Button-1> "consEditConf"
   bind .dlg.savedFrame.listbSaved {%W yview scroll [expr {%D/-120}] units}
   grid rowconfigure .dlg.savedFrame 0 -weight 1
   grid columnconfigure .dlg.savedFrame 0 -weight 1
-
   
   #  Create the labels and entry fields for this dialog
   #
@@ -42,22 +108,19 @@ proc connect_dialog { } {
 	set length     [lindex $prop 3]
 	set default    [lindex $prop 4]
 
-	if { $type != "D" } {
+	global $varname
 
-	  global $varname
+	set $varname $default
+	
+	set entry [add_label_field .dlg.f $label_text $varname]
 
-	  set $varname $default
-	  
-	  set entry [add_label_field .dlg.f $label_text $varname]
+	if { $type == "*" } {
+	    $entry configure -show "*"
+	}
 
-	  if { $type == "*" } {
-			$entry configure -show "*"
-	  }
-
-	  if { $set_focus == "true" } {
-		focus -force $entry
-		set set_focus false
-	  }
+	if { $set_focus == "true" } {
+	    focus -force $entry
+	    set set_focus false
 	}
   }
 
@@ -74,17 +137,12 @@ proc connect_dialog { } {
   set result ""
 
   foreach prop [pg_conndefaults] { 
-
 	set type [lindex $prop 2]
+	set varname "$[lindex $prop 0]"
+	set varval [subst $varname]
 
-	if { $type != "D" } {
-
-	  set varname "$[lindex $prop 0]"
-	  set varval [subst $varname]
-
-	  if { $varval != "" } {
-		append result "[lindex $prop 0]=$varval "
-	  }
+	if { $varval != "" } {
+	    append result "[lindex $prop 0]=$varval "
 	}
   }
 
