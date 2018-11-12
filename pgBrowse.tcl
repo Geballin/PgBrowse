@@ -605,7 +605,7 @@ proc saveFile {} {
     puts $f $line
    }
    close $f
-   tk_messageBox -title PgBrowser \
+   tk_messageBox -title PgBrowse \
                     -message "Save File Completed"  \
                     -type  ok
 
@@ -665,7 +665,7 @@ proc saveFormattedFile {} {
 	    puts $f  "$line"
            }
     close $f
-   tk_messageBox -title PgBrowser \
+   tk_messageBox -title PgBrowse \
                    -message "Save File Completed."  \
                    -type  ok
 
