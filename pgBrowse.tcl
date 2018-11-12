@@ -43,17 +43,9 @@ proc main { } {
   
   wm iconify .
 
-#  catch {
-#  package require Tclapplescript 
-#  AppleScript execute {tell app "Wish Shell" to activate} 
-# }
-  # perhaps psql is available....
-  
   set psql [findPsql]
   
-  #set conn [connect]
-   set results [connect]
-   #puts $results
+  set results [connect]
    
   if { $results != {} } {
     
