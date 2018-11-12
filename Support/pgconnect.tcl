@@ -2,7 +2,7 @@
 
 # Read the pgbrowse config file and put the list of the sections to the global
 # variable named $listname_arg
-set PGBROWSE_CONFIG_FILENAME "~/pgbrowse.cfg"
+set PGBROWSE_CONFIG_FILENAME "~/.pgbrowse.cfg"
 proc pg_connpopulate {} {
     global PGBROWSE_CONFIG_FILENAME
     set sectionslist ""
