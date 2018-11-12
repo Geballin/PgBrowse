@@ -41,7 +41,7 @@ proc main { } {
   global linux
   global tcl_platform
   
-  wm iconify .
+  wm withdraw .
 
   set psql [findPsql]
   
