@@ -24,7 +24,7 @@ wm title .readme "ReadMe for PgBrowse"
  pack .readme.syc   -side left -fill y -pady 4
 
  # Insert the Help text 
- set f [open [file join $basedir "README-1.0.txt"] r]
+ set f [open [file join $basedir "README"] r]
 
  set contents [read $f]
  close $f
