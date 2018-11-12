@@ -24,7 +24,7 @@ proc pg_getconfignamed {configname} {
 
 proc pg_addconfignamed {configname config_arg} {
     global PGBROWSE_CONFIG_FILENAME
-    set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME]
+    set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME "w+"]
     dict for {key value} $config_arg {
 	ini::set $inifile_handle $configname $key $value
     }
