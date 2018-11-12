@@ -2,21 +2,12 @@ PgBrowse is a PostgreSQL client. It will allow the user to connect to a PostgreS
 database and execute SQL commands (and much more).
 
 Prerequistes:
-  Tcl/Tk      (8.4.5 or better )
+  Tcl/Tk      (8.5 or better )
   TkTable     (2.8 or better )
   Img	      (Needed to view images)
   Tkhtml      (Needed to view html documentation)
 
-  Pgtcl  1.5 or better (1.4 does not support the notice processor
-      http://gborg.postgresql.org/project/pgtclng ).
-   or
-   
-  pgin.tcl    (this is a pure tcl interface to postgresql 7.4 and greater
-       http://gborg.postgresql.org/project/pgintcl)
-
-  pgconnect.tcl ( a tcl program that logs into a postgresql database, in this package)
-
-  PostgreSQL  ( Tested with 7.4.2 -8.1.1 note libpq needed to build Pgtcl))
+  PostgreSQL
 
 
 Using the program.
@@ -420,6 +411,10 @@ Version 1.7a released Jan 17, 2006
       reports that have numeric columns right justified.
     o Renamed the "Table Info..." menu to "Table Editor & Information" to more
       accurately reflect its use.
+
+Version 1.8 released Nov 14, 2018
+
+    o Added a fonction to save/load configurations in the connection window
 
 ****************************************************************************          
   PgBrowser is a heavily reworked version of the Tcl PostgreSQL client that is
