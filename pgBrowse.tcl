@@ -5,7 +5,7 @@ exec wish "$0" "$@"
 #!/usr/bin/wish
 #
 # Filename: PgBrowse.tcl
-# Version:  1.0
+# Version:  1.8
 # Released: Oct 27, 2004
 # 
 # Sorta Authored by: Jerry LeVan  http://homepage.mac.com/levanj
@@ -23,12 +23,8 @@ exec wish "$0" "$@"
 # with PostgreSQL databases.
 # Requirements:
 #   TkTable (any recent version)
-#   Pgtcl 1.5 ( 1.4 will work but you will have to remove the 
-#     pg_notice_handler line a few lines down. )
-#   PostgreSQL ( only tested with 7.4.2 - 8.0.0b4)
-#   Tcl/Tk     ( only tested with Aqua tcl/tk 8.4.5)
-#   pgconnect.tcl ( the nifty tk program that handles the login process
-#                   taken directly from the PostgreSQL book above.)
+#   PostgreSQL
+#   Tcl/Tk     
 #
 # We will keep important globals in ui_vars
 # ui_vars(cmdStatus) = .top.cmdStatus.t , where the status and notices show
