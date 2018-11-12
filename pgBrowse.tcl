@@ -31,6 +31,8 @@ exec wish "$0" "$@"
 # ui_vars(code)      = .top.code.t , where the sql code is entered
 # ui_vars(table)     = .top.resFrame.table , where the selections are displayed
 
+set VERSION 1.8
+
 proc main { } {
 
   global ui_vars
@@ -673,7 +675,7 @@ proc saveFormattedFile {} {
 }
 
 proc build_ui { conn } {
-
+  global VERSION
   global tcl_platform
   global ui_vars
   global connect_parms
@@ -683,10 +685,10 @@ proc build_ui { conn } {
 
   if { [catch {
   wm title . \
-  "PgBrowse Postgresql Client (v1.7a) - \
+  "PgBrowse Postgresql Client ($VERSION) - \
    user: $connect_parms(user) host: $connect_parms(host) dbname: $connect_parms(dbname)"
   } result ] } {
-    wm title . "PgBrowse PostgreSQL Client (v1.7a)"
+    wm title . "PgBrowse PostgreSQL Client ($VERION)"
   }
   
 
