@@ -380,48 +380,6 @@ proc pg_conndefaults {} {
   return $result
 }
 
-# Read the pgbrowse config file and put the list of the sections to the global
-# variable named $listname_arg
-set PGBROWSE_CONFIG_FILENAME "~/pgbrowse.cfg"
-proc pg_connpopulate {} {
-    global PGBROWSE_CONFIG_FILENAME
-    set sectionslist ""
-    if {[file exists $PGBROWSE_CONFIG_FILENAME]} {
-	set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME]
-	set sectionslist [ini::sections $inifile_handle]
-	ini::close $inifile_handle
-    }
-    return $sectionslist
-}
-
-proc pg_getconfignamed {configname} {
-    global PGBROWSE_CONFIG_FILENAME
-    set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME]
-    set config [ini::get $inifile_handle $configname]
-    ini::close $inifile_handle
-    return $config
-}
-
-proc pg_addconfignamed {configname config_arg} {
-    global PGBROWSE_CONFIG_FILENAME
-    set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME]
-    dict for {key value} $config_arg {
-	ini::set $inifile_handle $configname $key $value
-    }
-    set sectionslist [ini::sections $inifile_handle]
-    ini::commit $inifile_handle
-    ini::close $inifile_handle
-    return $sectionslist
-}
-
-proc pg_removeconfig {configname} {
-    global PGBROWSE_CONFIG_FILENAME
-    set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME]
-    ini::delete $inifile_handle $configname
-    set sectionslist [ini::sections $inifile_handle]
-    return $sectionslist
-}
-
 # Connect to database. Only the new form, with -conninfo, is recognized.
 # We speak backend protocol v3, and only handle clear-text password and
 # MD5 authentication (messages R 3, and R 5).
