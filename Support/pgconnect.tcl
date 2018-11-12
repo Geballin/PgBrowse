@@ -34,7 +34,7 @@ proc pg_addconfignamed {configname config_arg} {
     return $sectionslist
 }
 
-proc pg_removeconfig {configname} {
+proc pg_removeconfignamed {configname} {
     global PGBROWSE_CONFIG_FILENAME
     set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME]
     ini::delete $inifile_handle $configname
@@ -45,7 +45,7 @@ proc pg_removeconfig {configname} {
 proc del_config {configname} {
   global dlg_savedFrame_scrolllist_value
   if {[tk_messageBox -message "Are you sure you want to delete $configname from the list of the configurations available ?" -type yesno]} {
-      set dlg_savedFrame_scrolllist_value [pg_removeconfig $configname]
+      set dlg_savedFrame_scrolllist_value [pg_removeconfignamed $configname]
     }
 }
 
