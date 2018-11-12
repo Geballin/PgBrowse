@@ -31,6 +31,9 @@ exec wish "$0" "$@"
 # ui_vars(code)      = .top.code.t , where the sql code is entered
 # ui_vars(table)     = .top.resFrame.table , where the selections are displayed
 
+package require Tcl 8.5
+package require Tk
+
 set VERSION 1.8
 
 proc main { } {
