@@ -399,11 +399,6 @@ proc pg_connect {args} {
     error "Connection to database failed\n$msg"
   }
 
-  # Hostaddr overrides host, per documentation, and we need host below.
-  if {$opt(hostaddr) != ""} {
-    set opt(host) $opt(hostaddr)
-  }
-
   if {$pgtcl::debug} {
     puts "+pg_connect to $opt(dbname)@$opt(host):$opt(port) as $opt(user)"
   }
@@ -418,7 +413,7 @@ proc pg_connect {args} {
   pgtcl::sendmsg $sock {} [binary format "I a*x a*x a*x a*x a*x a*x a*x a*x x" \
         0x00030000 \
         user $opt(user) database $opt(dbname) \
-        client_encoding UNICODE options $opt(options)]
+            client_encoding UNICODE options {}]
 
   set msg {}
   while {[set c [pgtcl::readmsg $sock]] != "Z"} {
