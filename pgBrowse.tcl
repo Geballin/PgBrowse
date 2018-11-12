@@ -678,8 +678,6 @@ proc build_ui { conn } {
   global ui_vars
   global connect_parms
   
-  #toplevel .
-  
   panedwindow .top -orient vertical -showhandle 1 -bg white
   pack .top -expand yes -fill both
 
