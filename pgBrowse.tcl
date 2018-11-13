@@ -48,6 +48,8 @@ proc main { } {
   
   wm withdraw .
 
+  image create photo applicationIcon -file [file join [file dirname [info script]] Support "icone.png"];wm iconphoto . -default applicationIcon
+
   set psql [findPsql]
   
   set results [connect]
@@ -692,8 +694,8 @@ proc build_ui { conn } {
    user: $connect_parms(user) host: $connect_parms(host) dbname: $connect_parms(dbname)"
   } result ] } {
     wm title . "PgBrowse PostgreSQL Client ($VERION)"
-  }
-  
+     }
+     
 
 if {[string equal [tk windowingsystem] "classic"] 
 	|| [string equal [tk windowingsystem] "aqua"]} {
