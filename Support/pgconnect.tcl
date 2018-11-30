@@ -40,6 +40,7 @@ proc pg_removeconfignamed {configname} {
     ini::delete $inifile_handle $configname
     ini::commit $inifile_handle
     set sectionslist [ini::sections $inifile_handle]
+    ini::close $inifile_handle
     return $sectionslist
 }
 
