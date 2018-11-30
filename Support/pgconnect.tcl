@@ -24,7 +24,7 @@ proc pg_getconfignamed {configname} {
 
 proc pg_addconfignamed {configname config_arg} {
     global PGBROWSE_CONFIG_FILENAME
-    set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME "w+"]
+    set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME "r+"]
     dict for {key value} $config_arg {
 	ini::set $inifile_handle $configname $key $value
     }
@@ -38,6 +38,7 @@ proc pg_removeconfignamed {configname} {
     global PGBROWSE_CONFIG_FILENAME
     set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME]
     ini::delete $inifile_handle $configname
+    ini::commit $inifile_handle
     set sectionslist [ini::sections $inifile_handle]
     return $sectionslist
 }
