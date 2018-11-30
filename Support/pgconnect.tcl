@@ -93,7 +93,9 @@ proc entry_dialog {message {title {}} {default_entry {}} {parentWindow .}} {
     .entrydlg.entry insert 0 $default_entry
     
     wm title .entrydlg $title
-    wm attributes .entrydlg -type dialog
+    wm attributes .entrydlg -topmost
+    wm minsize .entrydlg [winfo width .entrydlg] [winfo height .entrydlg]
+    wm resizable .entrydlg 0 0
     wm transient .entrydlg $parentWindow
 
     focus .entrydlg.entry
