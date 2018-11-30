@@ -28,8 +28,8 @@ proc pg_addconfignamed {configname config_arg} {
     dict for {key value} $config_arg {
 	ini::set $inifile_handle $configname $key $value
     }
-    set sectionslist [ini::sections $inifile_handle]
     ini::commit $inifile_handle
+    set sectionslist [ini::sections $inifile_handle]
     ini::close $inifile_handle
     return $sectionslist
 }
