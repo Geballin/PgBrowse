@@ -10,6 +10,8 @@ proc pg_connpopulate {} {
 	set inifile_handle [ini::open $PGBROWSE_CONFIG_FILENAME]
 	set sectionslist [ini::sections $inifile_handle]
 	ini::close $inifile_handle
+    } else {
+	close [open $PGBROWSE_CONFIG_FILENAME "w"]
     }
     return $sectionslist
 }
