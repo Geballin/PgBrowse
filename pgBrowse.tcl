@@ -33,6 +33,7 @@ exec wish "$0" "$@"
 
 package require Tcl 8.5
 package require Tk
+package require Ttk
 
 set VERSION 1.8
 
@@ -142,7 +143,7 @@ proc findPsql {} {
   if { [file exists /usr/bin/psql]} {return /usr/bin/psql}
   if { [file exists /usr/local/bin/psql]} {return /usr/local/bin/psql}
   if { [file exists /usr/local/pgsql/bin/psql]} {return /usr/local/pgsql/bin/psql}
-   
+  
   return ""
 }
 
@@ -717,9 +718,9 @@ foreach {w label} {code "[SQL]" cmdStatus  "[Status]"} {
 		-borderwidth 3 \
 		-xscrollcommand [list $f.xbar set] \
 		-yscrollcommand [list $f.ybar set]
-	scrollbar $f.xbar -orient horizontal \
+	ttk::scrollbar $f.xbar -orient horizontal \
 		-command [list $f.t xview]
-	scrollbar $f.ybar -orient vertical \
+	ttk::scrollbar $f.ybar -orient vertical \
 		-command [list $f.t yview]
 
 	grid $f.t -row 0 -column 0 -sticky news -padx 2 -pady 2
@@ -745,8 +746,8 @@ foreach {w label} {code "[SQL]" cmdStatus  "[Status]"} {
   set f [labelframe .top.resFrame -text {[Selection Results]} -fg blue -bg white]
   set table [make_table $f]
   
-  scrollbar $f.sx -orient horizontal -command [list $table xview]
-  scrollbar $f.sy -command " $table yview"
+  ttk::scrollbar $f.sx -orient horizontal -command [list $table xview]
+  ttk::scrollbar $f.sy -command " $table yview"
   grid $table -row 0 -column 0 -sticky news -padx 2 -pady 2
   grid $f.sx  -row 1 -column 0 -sticky ew -padx 2 -pady 2
   grid $f.sy  -row 0 -column 1 -sticky ns -padx 2 -pady 2

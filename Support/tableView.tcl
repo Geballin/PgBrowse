@@ -49,7 +49,7 @@ proc buildUI {} {
     
     toplevel .viewer
     wm title .viewer "$dbTable Editor"
-    frame .viewer.tabframe
+    ttk::frame .viewer.tabframe
 
    
     set theTable [ make_table1 .viewer.tabframe]
@@ -80,38 +80,38 @@ proc buildUI {} {
     pack .viewer.tabframe.sy -side right -fill y
     pack $theTable -side top -fill both -expand yes
    
-    frame .viewer.buttonFrame
-    button .viewer.buttonFrame.goback -text " < " -command "goback"
+    ttk::frame .viewer.buttonFrame
+    ttk::button .viewer.buttonFrame.goback -text " < " -command "goback"
     pack .viewer.buttonFrame.goback -side left 
-    button .viewer.buttonFrame.gofwd -text " > " -command "gofwd"
+    ttk::button .viewer.buttonFrame.gofwd -text " > " -command "gofwd"
     pack .viewer.buttonFrame.gofwd -side left
-    entry .viewer.buttonFrame.rowcnt -textvariable stepSize -width 7 -justify right
+    ttk::entry .viewer.buttonFrame.rowcnt -textvariable stepSize -justify right
     pack .viewer.buttonFrame.rowcnt -side left
     
-    menubutton .viewer.buttonFrame.mb \
+    ttk::menubutton .viewer.buttonFrame.mb \
       -relief raised -text Move -menu .viewer.buttonFrame.mb.menu
     pack .viewer.buttonFrame.mb -side left
     set m [menu .viewer.buttonFrame.mb.menu -tearoff 0]
     $m add command -label "Move cursor absolute" -command "moveCursor absolute"
     $m add command -label "Move cursor relative" -command "moveCursor relative"
-    entry .viewer.buttonFrame.pos -textvariable moveSize -width 7 -justify right
+    ttk::entry .viewer.buttonFrame.pos -textvariable moveSize -justify right
     pack .viewer.buttonFrame.pos -side left
     
-    button .viewer.buttonFrame.cancel -text "Close" -command "cancelCmd"
+    ttk::button .viewer.buttonFrame.cancel -text "Close" -command "cancelCmd"
     pack .viewer.buttonFrame.cancel -side right 
-    button .viewer.buttonFrame.insert -text "Insert" -command "insertRecord"
+    ttk::button .viewer.buttonFrame.insert -text "Insert" -command "insertRecord"
     pack .viewer.buttonFrame.insert -side right 
-    button .viewer.buttonFrame.del -text "Delete" -command "delete_rec"
+    ttk::button .viewer.buttonFrame.del -text "Delete" -command "delete_rec"
     pack .viewer.buttonFrame.del -side right
-    button .viewer.buttonFrame.updt -text "Update" -command "update_rec"
+    ttk::button .viewer.buttonFrame.updt -text "Update" -command "update_rec"
     pack .viewer.buttonFrame.updt -side right    
     
     pack .viewer.buttonFrame -expand no -fill x
     
-    frame .viewer.filterFrame
-    label .viewer.filterFrame.filterLabel -text "Filter by:"
+    ttk::frame .viewer.filterFrame
+    ttk::label .viewer.filterFrame.filterLabel -text "Filter by:"
     entry .viewer.filterFrame.filter -textvariable filterText -width 45
-    button .viewer.filterFrame.button -text "Use Filter" -command "filterTable"
+    ttk::button .viewer.filterFrame.button -text "Use Filter" -command "filterTable"
     pack .viewer.filterFrame.filterLabel -side left
     pack .viewer.filterFrame.filter -side left
     pack .viewer.filterFrame.button -side left

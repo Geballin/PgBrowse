@@ -85,16 +85,17 @@ proc entry_dialog {message {title {}} {default_entry {}} {parentWindow .}} {
     set cancelAction {destroy .entrydlg}
     
     toplevel .entrydlg
-    pack [label .entrydlg.lbl -text $message] -side top
-    pack [entry .entrydlg.entry ] -side top
-    pack [button .entrydlg.okbut -text "OK" -default active -command $okAction] -side right
-    pack [button .entrydlg.cancelbut -text "Cancel" -command $cancelAction] -side right
+    pack [ttk::frame .entrydlg.frm] -padx 5 -pady 5 -fill both
+    pack [ttk::label .entrydlg.frm.lbl -text $message] -side top
+    pack [ttk::entry .entrydlg.frm.entry ] -side top
+    pack [ttk::button .entrydlg.frm.okbut -text "OK" -default active -command $okAction] -side right
+    pack [ttk::button .entrydlg.frm.cancelbut -text "Cancel" -command $cancelAction] -side right
 
     bind .entrydlg <Key-Return> $okAction
     bind .entrydlg <Key-Escape> $cancelAction
 
-    .entrydlg.entry delete 0
-    .entrydlg.entry insert 0 $default_entry
+    .entrydlg.frm.entry delete 0
+    .entrydlg.frm.entry insert 0 $default_entry
     
     wm title .entrydlg $title
     wm attributes .entrydlg -topmost
@@ -102,7 +103,7 @@ proc entry_dialog {message {title {}} {default_entry {}} {parentWindow .}} {
     wm resizable .entrydlg 0 0
     wm transient .entrydlg $parentWindow
 
-    focus .entrydlg.entry
+    focus .entrydlg.frm.entry
     tkwait window .entrydlg
     return $ENTRY_VALUE
 }
@@ -129,17 +130,17 @@ proc connect_dialog { } {
   set DLG_SAVEDFRAME_SCROLLLIST_VALUE [pg_connpopulate]
   
   grid [listbox .dlg.savedFrame.listbSaved -listvariable DLG_SAVEDFRAME_SCROLLLIST_VALUE -height 1 -yscrollcommand ".dlg.savedFrame.scrolllist set"] -column 0 -row 0 -columnspan 3 -sticky nsew
-  grid [scrollbar .dlg.savedFrame.scrolllist -command ".dlg.savedFrame.listbSaved yview" -orient vertical] -column 3 -row 0 -sticky ns
+  grid [ttk::scrollbar .dlg.savedFrame.scrolllist -command ".dlg.savedFrame.listbSaved yview" -orient vertical] -column 3 -row 0 -sticky ns
   image create photo .dlg.savedFrame.trashIcon -file [file join [file dirname [file normalize [info script]]] "Support" "trash16.png"]
-  grid [button .dlg.savedFrame.delBut -image .dlg.savedFrame.trashIcon -command \
+  grid [ttk::button .dlg.savedFrame.delBut -image .dlg.savedFrame.trashIcon -command \
 	    {if {[.dlg.savedFrame.listbSaved curselection] != ""} {
 		del_config [.dlg.savedFrame.listbSaved get [lindex [.dlg.savedFrame.listbSaved curselection] 0]]}} \
        ] -column 0 -row 1 
-  grid [button .dlg.savedFrame.loadBut -text "Load" -command \
+  grid [ttk::button .dlg.savedFrame.loadBut -text "Load" -command \
 	    {if {[.dlg.savedFrame.listbSaved curselection] != ""} {
 		load_config [.dlg.savedFrame.listbSaved get [lindex [.dlg.savedFrame.listbSaved curselection] 0]]}} \
        ] -column 1 -row 1  -pady 5
-    grid [button .dlg.savedFrame.saveBut -text "Save" -command save_config] -column 2 -row 1  -pady 5
+    grid [ttk::button .dlg.savedFrame.saveBut -text "Save" -command save_config] -column 2 -row 1  -pady 5
   bind .dlg.savedFrame.listbSaved <Double-Button-1> "consEditConf"
   bind .dlg.savedFrame.listbSaved {%W yview scroll [expr {%D/-120}] units}
   grid rowconfigure .dlg.savedFrame 0 -weight 1
@@ -210,7 +211,7 @@ proc add_label_field { w text textvar } {
 	label $label_path -text $text -bg lightblue
 	grid  $label_path -row $_NEXT_ROW -column 1 -sticky e
 
-	entry $entry_path -textvariable $textvar
+	ttk::entry $entry_path -textvariable $textvar
 	grid  $entry_path -row $_NEXT_ROW -column 2 -sticky w
 
 	bind $entry_path <Return> "$w.default invoke"
@@ -227,7 +228,7 @@ proc add_button { path text command column } {
 	  set sticky "ws"
 	} else { set sticky "es"	}
 
-	button $path -text $text -command $command -highlightbackground lightblue 
+	ttk::button $path -text $text -command $command
 	grid   $path -row $_NEXT_ROW -column $column -sticky $sticky -pady 5
 	grid rowconfigure $path $_NEXT_ROW -weight 1
 	grid columnconfigure $path $column -weight 1

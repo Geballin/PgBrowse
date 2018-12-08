@@ -292,14 +292,14 @@ proc buildHtmlViewer {} {
 # Pack the HTML widget into the main screen.
 #
     pack .dv.h.h -side left -fill both -expand 1
-    scrollbar .dv.h.vsb -orient vertical -command {.dv.h.h yview}
+    ttk::scrollbar .dv.h.vsb -orient vertical -command {.dv.h.h yview}
     pack .dv.h.vsb -side left -fill y
     
     frame .dv.f2
     pack .dv.f2 -side top -fill x
     frame .dv.f2.sp -width [winfo reqwidth .dv.h.vsb] -bd 2 -relief raised
     pack .dv.f2.sp -side right -fill y
-    scrollbar .dv.f2.hsb -orient horizontal -command {.dv.h.h xview}
+    ttk::scrollbar .dv.f2.hsb -orient horizontal -command {.dv.h.h xview}
     pack .dv.f2.hsb -side top -fill x
     
     bind .dv.h.h.x <1> {HrefBinding %x %y}
