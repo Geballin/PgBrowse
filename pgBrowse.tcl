@@ -736,10 +736,6 @@ foreach {w label} {code "[SQL]" cmdStatus  "[Status]"} {
   $ui_vars(cmdStatus) configure -height 5
   $ui_vars(cmdStatus) configure -bg lightgray
   $ui_vars(code) configure -bg white
-  if { $tcl_platform(platform) == "unix" && $tcl_platform(os) != "Darwin"} {
-     $ui_vars(code) configure -font {fixed}
-     $ui_vars(cmdStatus) configure -font {fixed}
-  }
   # build and configure the table to show the selection results
   set f [labelframe .top.resFrame -text {[Selection Results]} -fg blue -bg white]
   set table [make_table $f]
