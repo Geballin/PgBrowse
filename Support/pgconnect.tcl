@@ -81,7 +81,7 @@ proc save_config {} {
 proc entry_dialog {message {title {}} {default_entry {}} {parentWindow .}} {
     global ENTRY_VALUE
     set ENTRY_VALUE {}
-    set okAction {set ENTRY_VALUE [.entrydlg.entry get];destroy .entrydlg}
+    set okAction {set ENTRY_VALUE [.entrydlg.frm.entry get];destroy .entrydlg}
     set cancelAction {destroy .entrydlg}
     
     toplevel .entrydlg
