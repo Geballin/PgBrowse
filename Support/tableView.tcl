@@ -31,8 +31,8 @@ proc make_table1 { parent } {
    $parent.table tag col anchoreast -1
    $parent.table tag row anchorcenter -1
    $parent.table config -bg white
-   scrollbar $parent.sx -orient horizontal -command [list $parent.table xview]
-   scrollbar $parent.sy -command " $parent.table yview"
+   ttk::scrollbar $parent.sx -orient horizontal -command [list $parent.table xview]
+   ttk::scrollbar $parent.sy -command " $parent.table yview"
    
    
   return $parent.table  
@@ -89,7 +89,7 @@ proc buildUI {} {
     pack .viewer.buttonFrame.rowcnt -side left
     
     ttk::menubutton .viewer.buttonFrame.mb \
-      -relief raised -text Move -menu .viewer.buttonFrame.mb.menu
+      -text Move -menu .viewer.buttonFrame.mb.menu
     pack .viewer.buttonFrame.mb -side left
     set m [menu .viewer.buttonFrame.mb.menu -tearoff 0]
     $m add command -label "Move cursor absolute" -command "moveCursor absolute"
@@ -108,14 +108,14 @@ proc buildUI {} {
     
     pack .viewer.buttonFrame -expand no -fill x
     
-    ttk::frame .viewer.filterFrame
+    ttk::frame .viewer.filterFrame 
     ttk::label .viewer.filterFrame.filterLabel -text "Filter by:"
     entry .viewer.filterFrame.filter -textvariable filterText -width 45
     ttk::button .viewer.filterFrame.button -text "Use Filter" -command "filterTable"
     pack .viewer.filterFrame.filterLabel -side left
     pack .viewer.filterFrame.filter -side left
     pack .viewer.filterFrame.button -side left
-    pack .viewer.filterFrame -expand no -fill x
+    pack .viewer.filterFrame -expand no -fill x -padx 5 -pady 5
 } 
 
 proc update_rec {} {
