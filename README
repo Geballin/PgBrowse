@@ -2,7 +2,7 @@ PgBrowse is a PostgreSQL client. It will allow the user to connect to a PostgreS
 database and execute SQL commands (and much more).
 
 Prerequistes:
-  Tcl/Tk      (8.5 or better )
+  Tcl/Tk      (8.6 or better )
   TkTable     (2.8 or better )
   Img	      (Needed to view images)
   Tkhtml      (Needed to view html documentation)

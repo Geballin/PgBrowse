@@ -11,8 +11,6 @@ exec wish "$0" "$@"
 # Sorta Authored by: Jerry LeVan  http://homepage.mac.com/levanj
 # Email: jerry.levan@eku.edu
 #
-# Location: http://homepage.mac.com/TclTk
-#
 # This program is an enhanced version of the tcl client
 # found in the books "PostgreSQL" by Douglas and Douglas.
 #
@@ -31,7 +29,7 @@ exec wish "$0" "$@"
 # ui_vars(code)      = .top.code.t , where the sql code is entered
 # ui_vars(table)     = .top.resFrame.table , where the selections are displayed
 
-package require Tcl 8.5
+package require Tcl 8.6
 package require Tk
 package require Ttk
 
