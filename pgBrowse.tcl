@@ -1,8 +1,4 @@
-#!/bin/sh 
-# \
-exec wish "$0" "$@"
-
-#!/usr/bin/wish
+#!/usr/bin/env wish
 #
 # Filename: PgBrowse.tcl
 # Version:  1.8
