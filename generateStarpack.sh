@@ -3,8 +3,7 @@
 # sdx.kit must be in ../ as well as your tclkit.exe
 
 mkdir PgBrowse.vfs
-printf "source pgBrowse.tcl\n" > PgBrowse.vfs/main.tcl
-cp pgBrowse.tcl PgBrowse.vfs/
+cp pgBrowse.tcl PgBrowse.vfs/main.tcl
 cp -r Support PgBrowse.vfs/
 mv PgBrowse.vfs/Support/icone.ico PgBrowse.vfs/tclkit.ico
 
