@@ -6,7 +6,7 @@ mkdir PgBrowse.vfs
 printf "source pgBrowse.tcl\n" > PgBrowse.vfs/main.tcl
 cp pgBrowse.tcl PgBrowse.vfs/
 cp -r Support PgBrowse.vfs/
-mv PgBrowse.vfs/Support/icone.ico PgBrowse.vfs/
+mv PgBrowse.vfs/Support/icone.ico PgBrowse.vfs/tclkit.ico
 
 tclsh ../sdx.kit wrap PgBrowse -runtime ../tclkit.exe
 mv PgBrowse PgBrowse.exe
