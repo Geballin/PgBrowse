@@ -4,6 +4,7 @@
 
 mkdir PgBrowse.vfs
 cp pgBrowse.tcl PgBrowse.vfs/main.tcl
+cp README.md PgBrowse.vfs/
 cp -r Support PgBrowse.vfs/
 mv PgBrowse.vfs/Support/icone.ico PgBrowse.vfs/tclkit.ico
 
