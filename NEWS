@@ -1,3 +1,9 @@
+Version 1.9 released Jan 15, 2019
+
+    o Replacing a lot of TK widgets by TTK ones
+    o Packaging for MacOS X and Windows
+    o Minor bug fixes
+
 Version 1.8 released Nov 14, 2018
 
     o Added a fonction to save/load configurations in the connection window
