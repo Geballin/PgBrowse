@@ -1,7 +1,7 @@
 #!/usr/bin/env wish
 #
 # Filename: PgBrowse.tcl
-# Version:  1.8
+# Version:  1.9
 # Released: Oct 27, 2004
 # 
 # Sorta Authored by: Jerry LeVan  http://homepage.mac.com/levanj
@@ -19,17 +19,12 @@
 #   TkTable (any recent version)
 #   PostgreSQL
 #   Tcl/Tk     
-#
-# We will keep important globals in ui_vars
-# ui_vars(cmdStatus) = .top.cmdStatus.t , where the status and notices show
-# ui_vars(code)      = .top.code.t , where the sql code is entered
-# ui_vars(table)     = .top.resFrame.table , where the selections are displayed
 
 package require Tcl 8.6
 package require Tk
 package require Ttk
 
-set VERSION 1.8
+set VERSION 1.9
 
 proc main { } {
 
