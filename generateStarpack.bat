@@ -6,7 +6,7 @@ copy pgBrowse.tcl PgBrowse.vfs\main.tcl
 copy README.md PgBrowse.vfs\
 mkdir PgBrowse.vfs\Support
 xcopy Support PgBrowse.vfs\Support\ /s
-move PgBrowse.vfs\icone.ico PgBrowse.vfs\tclkit.ico
-move PgBrowse.vfs\tclkit.inf PgBrowse.vfs\tclkit.inf
+copy icone.ico PgBrowse.vfs\tclkit.ico
+copy tclkit.inf PgBrowse.vfs\tclkit.inf
 
 tclsh ../sdx.kit wrap PgBrowse.exe -runtime ../kbsvq8.6-bi-0.4.7.exe
