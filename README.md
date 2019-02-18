@@ -54,7 +54,10 @@ The user has several options available to execute the SQL code in the editor win
 
    \<shift-enter\> is the same as \<shift-return\>
 
-## Future Directions:
+## Future Directions (for version 2.0):
 
 Using TTK for all widgets
+Adding a toolbar to the requests window
+Disable auto-commit mode by default (with Commit/Rollback buttons in toolbar)
+Better use or replacing TKTable for a better text selection in row, better copy of row...
 Adding auto-completion to the SQL request editor
