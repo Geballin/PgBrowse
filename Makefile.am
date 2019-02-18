@@ -3,7 +3,7 @@ include ./supportfiles.mk
 bin_SCRIPTS = pgbrowse
 pgbrowse:
 	echo "#! /bin/sh" >$@
-	echo '`dirname $$0`/../share/pgbrowse/pgBrowse.tcl' >>$@
+	echo 'tclsh `dirname $$0`/../share/pgbrowse/pgBrowse.tcl' >>$@
 	chmod ugo+x $@
 appdir = $(prefix)/share/applications
 app_DATA = pgbrowse.desktop
