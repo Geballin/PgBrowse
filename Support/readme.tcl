@@ -14,17 +14,17 @@ wm title .readme "ReadMe for PgBrowse"
          -relief  groove \
          -setgrid true  \
          -yscrollcommand {.readme.syc set } 
-  scrollbar .readme.syc -command [list .readme.command yview]
+  ttk::scrollbar .readme.syc -command [list .readme.command yview]
 
 
- button .readme.exit -text "Exit Help" -command {destroy .readme}
+ ttk::button .readme.exit -text "Exit Help" -command {destroy .readme}
 
  pack .readme.exit -side bottom 
  pack .readme.command -side left -expand true -fill both -padx 4 -pady 4
  pack .readme.syc   -side left -fill y -pady 4
 
  # Insert the Help text 
-set f [open [file join file normalize [file dirname [info script]] "README.md"] r]
+set f [open [file normalize [file join [file dirname [info script]] "README.md"]] r]
 
 
  set contents [read $f]
