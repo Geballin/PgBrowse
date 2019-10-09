@@ -9,7 +9,7 @@ toplevel .help
       -borderwidth 3 \
       -relief groove \
       -yscrollcommand {.help.sy set } 
-  scrollbar .help.sy -command [list .help.cmd yview]
+  ttk::scrollbar .help.sy -command [list .help.cmd yview]
 
  text  .help.command -width 50 -height 10  \
          -padx 4 \
@@ -17,7 +17,7 @@ toplevel .help
          -relief  groove \
          -setgrid true  \
          -yscrollcommand {.help.syc set } 
-  scrollbar .help.syc -command [list .help.command yview]
+  ttk::scrollbar .help.syc -command [list .help.command yview]
 
   # listboxen post virtual event to indicate selection change
   bind .help.cmd <<ListboxSelect>> {
@@ -30,7 +30,7 @@ toplevel .help
     .help.command see $where
   }
 
- button .help.exit -text "Exit Help" -command {destroy .help }
+ ttk::button .help.exit -text "Exit Help" -command {destroy .help }
 
  pack .help.exit -side bottom 
  pack .help.cmd  -side left -expand true -fill both -padx 4 -pady 4
