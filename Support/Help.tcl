@@ -6,15 +6,10 @@ global basedir
 toplevel .help
 
  listbox .help.cmd -width 25 -height 10  \
-      -borderwidth 3 \
-      -relief groove \
       -yscrollcommand {.help.sy set } 
   ttk::scrollbar .help.sy -command [list .help.cmd yview]
 
  text  .help.command -width 50 -height 10  \
-         -padx 4 \
-         -borderwidth 3 \
-         -relief  groove \
          -setgrid true  \
          -yscrollcommand {.help.syc set } 
   ttk::scrollbar .help.syc -command [list .help.command yview]
@@ -32,10 +27,10 @@ toplevel .help
 
  ttk::button .help.exit -text "Exit Help" -command {destroy .help }
 
- pack .help.exit -side bottom 
- pack .help.cmd  -side left -expand true -fill both -padx 4 -pady 4
- pack .help.sy   -side left -fill y
- pack .help.command -side left -expand true -fill both -padx 4 -pady 4
+ pack .help.exit -side bottom -pady 4
+ pack .help.cmd  -side left -expand true -fill both -pady 4
+ pack .help.sy   -side left -fill y -pady 4
+ pack .help.command -side left -expand true -fill both -pady 4
  pack .help.syc   -side left -fill y -pady 4
 
  # Insert the Help text 
