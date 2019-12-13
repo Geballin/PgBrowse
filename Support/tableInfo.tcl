@@ -88,7 +88,7 @@ toplevel .showtable
   
   # step 1 set the query string
   set queryStr "select table_schema, table_name,table_type from \
-    information_schema.tables order by table_schema desc, table_type asc"
+    information_schema.tables where table_schema = 'public' order by table_schema desc, table_type asc"
     
   # do the query
   set result_set [pg_exec $conn $queryStr] 
@@ -107,9 +107,7 @@ toplevel .showtable
    set row_cnt [pg_result $result_set -numTuples]
    for { set i 0} { $i < $row_cnt } { incr i } {
      set tuple [pg_result $result_set -getTuple $i]
-     set item ""
-     append item [lindex $tuple 0] "." [lindex $tuple 1]
-     .showtable.tables insert end $item
+     .showtable.tables insert end [lindex $tuple 1]
     }
     
    # return memory
